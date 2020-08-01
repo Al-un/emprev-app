@@ -15,12 +15,10 @@ class ApiUser extends ApiBase {
     return resp.data
   }
 
-  async delete(payload: ApiReqPayload<User>): Promise<User> {
-    const resp: AxiosResponse<User> = await this.httpClient.delete(
+  async delete(payload: ApiReqPayload<User>): Promise<void> {
+    const resp: AxiosResponse<void> = await this.httpClient.delete(
       `/users/${payload.value.id}/`,
-      {
-        headers: this.buildAuthHeaders(payload),
-      }
+      { headers: this.buildAuthHeaders(payload) }
     )
 
     return resp.data
