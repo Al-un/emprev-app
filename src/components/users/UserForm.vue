@@ -7,6 +7,7 @@
     ></v-text-field>
 
     <v-text-field
+      v-if="value.id === undefined"
       v-model="value.password"
       label="XXPassword"
       type="password"
@@ -21,7 +22,7 @@
     </div>
 
     <v-container class="d-flex justify-end">
-      <v-btn class="mr-4" @click="form.cancel">
+      <v-btn class="mr-4" @click="$emit('cancel')">
         XXCancel
       </v-btn>
       <v-btn class="mr-4" @click="form.submit">
@@ -45,15 +46,12 @@ export default defineComponent({
   },
 
   setup(_: Props, ctx: SetupContext) {
-    const cancel = () => {
-      ctx.emit('cancel')
-    }
     const submit = () => {
       ctx.emit('submit')
     }
 
     return {
-      form: { cancel, submit },
+      form: { submit },
     }
   },
 })

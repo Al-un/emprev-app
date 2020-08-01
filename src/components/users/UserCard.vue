@@ -2,8 +2,13 @@
   <v-card class="user-card">
     <v-card-title>{{ user.username }}</v-card-title>
 
-    <v-card-actions v-if="$slots['actions'] !== undefined">
-      <slot name="actions"></slot>
+    <v-card-actions class="d-flex justify-end">
+      <v-btn class="mr-4" @click="$emit('user-edit', user)">
+        XXEdit
+      </v-btn>
+      <v-btn class="mr-4" @click="$emit('user-delete', user)">
+        XXDelete
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>

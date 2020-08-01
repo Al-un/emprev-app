@@ -1,12 +1,18 @@
 <template>
   <div class="user-grid">
-    <user-card v-for="(user, idx) in users" :key="idx" :user="user" />
-    <user-card-add />
+    <user-card
+      v-for="(user, idx) in users"
+      :key="idx"
+      :user="user"
+      @user-edit="user => $emit('user-edit', user)"
+      @user-delete="user => $emit('user-delete', user)"
+    />
+    <user-card-add @click="$emit('user-new')" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, ref } from '@vue/composition-api'
 
 import { User } from '@/models'
 import UserCard from './UserCard.vue'
