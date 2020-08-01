@@ -1,35 +1,18 @@
-export interface UserCredential {
-  username: string
-  password: string
-}
-
-export interface UserLoginSuccess {
-  token: string
-}
-
-export interface User {
+/**
+ * Most basic definition of a entity data model: it has an ID
+ */
+export interface Entity {
   id?: string
+}
+
+export interface User extends Entity {
   username: string
   isAdmin: boolean
   isDeleted: boolean
   password?: string
 }
 
-export interface UserJwt {
-  userId: string
-  isAdmin: boolean
-  // Expiration date
-  exp: number
-  // Issue date
-  iat: number
-  // Issuer identifier
-  iss: string
-  // Basically, username
-  sub: string
-}
-
-export interface Review {
-  id: string
+export interface Review extends Entity {
   reviewerUserId: string
   reviewedUserId: string
   period?: string
