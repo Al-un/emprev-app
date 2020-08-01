@@ -17,7 +17,7 @@ class ApiUser extends ApiBase {
 
   async delete(payload: ApiReqPayload<User>): Promise<User> {
     const resp: AxiosResponse<User> = await this.httpClient.delete(
-      `/users/${payload.value.id}`,
+      `/users/${payload.value.id}/`,
       {
         headers: this.buildAuthHeaders(payload),
       }
@@ -28,7 +28,7 @@ class ApiUser extends ApiBase {
 
   async get(payload: ApiReqPayload<string>): Promise<User> {
     const resp: AxiosResponse<User> = await this.httpClient.get(
-      `/users/${payload.value}`,
+      `/users/${payload.value}/`,
       {
         headers: this.buildAuthHeaders(payload),
       }
@@ -47,7 +47,7 @@ class ApiUser extends ApiBase {
 
   async login(payload: UserCredential): Promise<UserLoginSuccess> {
     const resp: AxiosResponse<UserLoginSuccess> = await this.httpClient.post(
-      '/users/login',
+      '/users/login/',
       payload
     )
 
@@ -56,7 +56,7 @@ class ApiUser extends ApiBase {
 
   async update(payload: ApiReqPayload<User>): Promise<User> {
     const resp: AxiosResponse<User> = await this.httpClient.put(
-      `/users/${payload.value.id}`,
+      `/users/${payload.value.id}/`,
       payload.value,
       { headers: this.buildAuthHeaders(payload) }
     )

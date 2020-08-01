@@ -15,7 +15,7 @@ class ApiReview extends ApiBase {
 
   async list(payload: ApiReqPayload<string>): Promise<Review[]> {
     const resp: AxiosResponse<Review[]> = await this.httpClient.get(
-      `/reviews/${payload.value}`,
+      `/reviews/${payload.value}/`,
       { headers: this.buildAuthHeaders(payload) }
     )
 
@@ -26,7 +26,7 @@ class ApiReview extends ApiBase {
     const review = payload.value
 
     const resp: AxiosResponse<Review> = await this.httpClient.put(
-      `/reviews/${review.reviewerUserId}/${review.id}`,
+      `/reviews/${review.reviewerUserId}/${review.id}/`,
       review,
       { headers: this.buildAuthHeaders(payload) }
     )
