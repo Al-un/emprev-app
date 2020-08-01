@@ -8,7 +8,7 @@ export interface UserLoginSuccess {
 }
 
 export interface User {
-  id: string
+  id?: string
   username: string
   isAdmin: boolean
   isDeleted: boolean
