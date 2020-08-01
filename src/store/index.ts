@@ -3,41 +3,64 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-import { UserCredential, User, UserJwt } from '@/models'
+import { UserCredential, UserJwt } from '@/models'
 import api from '@/api'
+
+const TOKEN_KEY = 'authToken'
+
+interface UserInfo {
+  id: string
+  username: string
+  isAdmin: boolean
+}
 
 interface RootState {
   token?: string
-  user?: {
-    id: string
-    username: string
-    isAdmin: boolean
+  user?: UserInfo
+}
+
+/**
+ * @todo move to proper utils?
+ */
+const decodeUserInfo = (jwt: string): UserInfo => {
+  const split = jwt.split('.')
+  const encodedUserInfo = split[1]
+  const decodedUserInfo = window.atob(encodedUserInfo)
+  const userInfo: UserJwt = JSON.parse(decodedUserInfo)
+
+  return {
+    id: userInfo.userId,
+    username: userInfo.sub,
+    isAdmin: userInfo.isAdmin,
   }
 }
 
 export default new Vuex.Store<RootState>({
-  state: {
-    token: undefined,
-    user: undefined,
+  state: () => {
+    const token = localStorage.getItem(TOKEN_KEY) || undefined
+
+    if (!token) {
+      return { token: undefined, user: undefined }
+    }
+
+    return {
+      token,
+      user: decodeUserInfo(token),
+    }
   },
   mutations: {
     updateToken: (state, token: string) => {
       state.token = token
 
       if (state.token) {
-        const split = state.token.split('.')
-        const encodedUserInfo = split[1]
-        const decodedUserInfo = window.atob(encodedUserInfo)
-        const userInfo: UserJwt = JSON.parse(decodedUserInfo)
+        // Decode user info
+        state.user = decodeUserInfo(state.token)
 
-        console.log(`UserInfo:`, userInfo)
-        state.user = {
-          id: userInfo.userId,
-          username: userInfo.sub,
-          isAdmin: userInfo.isAdmin,
-        }
+        // Save token to local store
+        localStorage.setItem(TOKEN_KEY, state.token)
       } else {
         state.user = undefined
+        localStorage.removeItem(TOKEN_KEY)
       }
     },
   },
