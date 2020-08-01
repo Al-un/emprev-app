@@ -1,4 +1,4 @@
-import { SetupContext } from '@vue/composition-api'
+import { SetupContext, computed } from '@vue/composition-api'
 
 import { User } from '@/models'
 import api from '@/api'
@@ -44,5 +44,28 @@ export const useUserList = (ctx: SetupContext) => {
     prepareForCreate: crud.prepareForCreate,
     prepareForUpdate: crud.prepareForUpdate,
     submitUserForm: crud.submit,
+  }
+}
+
+/**
+ *
+ * @param ctx
+ * @todo Types required here, which requires re-typing the RootState as well
+ */
+export const useLoggedUser = (ctx: SetupContext) => {
+  const user = ctx.root.$store.state.user
+
+  const isAdmin = computed<boolean>(() => (user ? user.isAdmin : false))
+  const username = computed<string | undefined>(() =>
+    user ? user.username : undefined
+  )
+  const userId = computed<string | undefined>(() =>
+    user ? user.id : undefined
+  )
+
+  return {
+    isAdmin,
+    username,
+    userId,
   }
 }

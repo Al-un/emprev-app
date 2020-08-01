@@ -18,4 +18,12 @@ export interface Review extends Entity {
   period?: string
   score?: number
   comment?: string
+  reviewerUser?: {
+    id: string
+    username: string
+  }
+  reviewedUser?: {
+    id: string
+    username: string
+  }
 }

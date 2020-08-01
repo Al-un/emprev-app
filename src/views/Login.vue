@@ -6,7 +6,7 @@
       :label="$t('views.login.username')"
       prepend-icon="mdi-account"
       required
-      type="type"
+      type="text"
     ></v-text-field>
     <v-text-field
       v-model="credentials.password"

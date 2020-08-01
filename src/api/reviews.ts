@@ -22,6 +22,15 @@ class ApiReview extends ApiBase {
     return resp.data
   }
 
+  async listAll(payload: ApiReqPayload<undefined>): Promise<Review[]> {
+    const resp: AxiosResponse<Review[]> = await this.httpClient.get(
+      `/reviews/`,
+      { headers: this.buildAuthHeaders(payload) }
+    )
+
+    return resp.data
+  }
+
   async update(payload: ApiReqPayload<Review>): Promise<Review> {
     const review = payload.value
 
