@@ -1,8 +1,9 @@
-import { configure } from "@storybook/vue";
+import { configure ,addDecorator} from "@storybook/vue";
 import { withKnobs, boolean, select } from "@storybook/addon-knobs";
 
 import i18n from "../src/plugins/i18n";
 import vuetify from "../src/plugins/vuetify";
+import 'vuetify/dist/vuetify.min.css'
 
 const i18nDecorator = () => ({
   // https://medium.com/studist-dev/internationalization-in-storybook-4be77773494c
@@ -34,7 +35,7 @@ const vuetifyDecorator = () => ({
   props: {
     vuetifyDark: {
       type: Boolean,
-      default: boolean("Vuetify Dark theme", true, "VuePlugins"),
+      default: boolean("Vuetify Dark theme", false, "VuePlugins"),
     },
   },
   watch: {

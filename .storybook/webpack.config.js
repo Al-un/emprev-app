@@ -8,30 +8,12 @@
 const path = require('path')
 
 module.exports = ({ config }) => {
-  config.resolve.extensions.push(
-    '.ts',
-    '.vue',
-    '.css',
-    '.scss',
-    '.html'
-  )
+  config.resolve.extensions.push('.ts', '.vue', '.scss', '.html')
 
   config.resolve.alias = {
     ...config.resolve.alias,
-    '@': path.resolve(__dirname, '../'),
-    '~': path.resolve(__dirname, '../'),
+    '@': path.resolve(__dirname, '../src'),
   }
-
-//   // https://stackoverflow.com/a/56250942/4906586
-//   config.module.rules.push({
-//     test: /\.stories\.ts?$/,
-//     exclude: /node_modules/,
-//     use: [
-//       { loader: require.resolve('babel-loader') },
-//       // https://github.com/storybookjs/storybook/blob/master/MIGRATION.md#from-version-51x-to-52x
-//       { loader: require.resolve('@storybook/source-loader') },
-//     ],
-//   })
 
   config.module.rules.push({
     test: /\.ts$/,
@@ -56,7 +38,7 @@ module.exports = ({ config }) => {
       {
         loader: 'sass-loader',
         options: {
-          prependData: `@use "~/styles/_includes.scss" as *;`,
+          prependData: `@use "~@/styles/_includes.scss" as *;`,
         },
       },
     ],
