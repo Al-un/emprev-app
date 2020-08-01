@@ -1,9 +1,9 @@
-import Vue from "vue";
-import Vuetify from "vuetify/lib";
-import colors from "vuetify/es5/util/colors";
-import i18n from "./i18n";
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import colors from 'vuetify/es5/util/colors'
+import i18n from './i18n'
 
-Vue.use(Vuetify);
+Vue.use(Vuetify)
 
 export default new Vuetify({
   theme: {
@@ -19,7 +19,7 @@ export default new Vuetify({
         info: colors.blue.lighten2,
         warning: colors.amber.base,
         error: colors.red.accent4,
-        success: colors.green.accent3
+        success: colors.green.accent3,
       },
       dark: {
         primary: colors.teal.darken1,
@@ -28,13 +28,13 @@ export default new Vuetify({
         info: colors.blue.lighten1,
         warning: colors.amber.base,
         error: colors.red.accent4,
-        success: colors.green.accent3
-      }
-    }
+        success: colors.green.accent3,
+      },
+    },
   },
   lang: {
     locales: {},
-    current: "",
-    t: (key, ...params) => i18n.t(key, params) as string
-  }
-});
+    current: '',
+    t: (key, ...params) => i18n.t(key, params) as string,
+  },
+})
