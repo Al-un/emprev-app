@@ -22,34 +22,13 @@ import { defineComponent, SetupContext } from '@vue/composition-api'
 
 import UserForm from '@/components/users/UserForm.vue'
 import UserGrid from '@/components/users/UserGrid.vue'
-import { useUserList } from './userslist'
-import api from '../../api'
+import { useUserList } from '@/composition'
 
 export default defineComponent({
   components: { UserForm, UserGrid },
 
   setup(_: {}, ctx: SetupContext) {
-    const {
-      users,
-      loading,
-      deleteUser,
-      cancelUserForm,
-      currentUser,
-      prepareForCreate,
-      prepareForUpdate,
-      submitUserForm,
-    } = useUserList(ctx)
-
-    return {
-      users,
-      loading,
-      deleteUser,
-      cancelUserForm,
-      currentUser,
-      prepareForCreate,
-      prepareForUpdate,
-      submitUserForm,
-    }
+    return useUserList(ctx)
   },
 })
 </script>
