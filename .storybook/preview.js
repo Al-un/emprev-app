@@ -3,6 +3,7 @@ import { withKnobs, boolean, select } from "@storybook/addon-knobs";
 
 import i18n from "../src/plugins/i18n";
 import vuetify from "../src/plugins/vuetify";
+import "../src/plugins/composition";
 import 'vuetify/dist/vuetify.min.css'
 
 const i18nDecorator = () => ({
