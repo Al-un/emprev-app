@@ -3,17 +3,22 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-import { UserCredential } from '@/models'
+import { UserCredential, User, UserJwt } from '@/models'
 import api from '@/api'
 
-export default new Vuex.Store({
+interface RootState {
+  token?: string
+  user?: {
+    id: string
+    username: string
+    isAdmin: boolean
+  }
+}
+
+export default new Vuex.Store<RootState>({
   state: {
-    token:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0FkbWluIjp0cnVlLCJ1c2VySWQiOiI1ZjI0ZjAxZDI1OGIyOTVhMWYzNWE3NjkiLCJleHAiOjE2MDE0NTI5NjksImlhdCI6MTU5NjI2ODk2OSwiaXNzIjoiYWwtdW4uZnIiLCJzdWIiOiJyb290In0.GHBjZ0XVNz_IRmwemf6tlXN035kyo3blWdHJehJ3axs',
-    user: {
-      id: '123',
-      username: 'Prout',
-    },
+    token: undefined,
+    user: undefined,
   },
   mutations: {
     updateToken: (state, token: string) => {
@@ -22,7 +27,17 @@ export default new Vuex.Store({
       if (state.token) {
         const split = state.token.split('.')
         const encodedUserInfo = split[1]
-        console.log(`UserInfo: ${encodedUserInfo}`)
+        const decodedUserInfo = window.atob(encodedUserInfo)
+        const userInfo: UserJwt = JSON.parse(decodedUserInfo)
+
+        console.log(`UserInfo:`, userInfo)
+        state.user = {
+          id: userInfo.userId,
+          username: userInfo.sub,
+          isAdmin: userInfo.isAdmin,
+        }
+      } else {
+        state.user = undefined
       }
     },
   },

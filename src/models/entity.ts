@@ -15,6 +15,19 @@ export interface User {
   password?: string
 }
 
+export interface UserJwt {
+  userId: string
+  isAdmin: boolean
+  // Expiration date
+  exp: number
+  // Issue date
+  iat: number
+  // Issuer identifier
+  iss: string
+  // Basically, username
+  sub: string
+}
+
 export interface Review {
   id: string
   reviewerUserId: string

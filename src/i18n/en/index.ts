@@ -1,25 +1,32 @@
-import { LocaleMessageObject } from "vue-i18n/types";
+import { LocaleMessageObject } from 'vue-i18n/types'
 
-import vuetifyMsgs from "./vuetify";
+import vuetifyMsgs from './vuetify'
 
 const msgs: LocaleMessageObject = {
   nav: {
     menu: {
-      home: "Home",
+      home: 'Home',
       users: {
-        title: "Users",
-        list: "Manage users"
+        title: 'Users',
+        list: 'Manage users',
       },
       reviews: {
-        title: "Reviews",
-        list: "Manage reviews"
-      }
+        title: 'Reviews',
+        list: 'Manage reviews',
+      },
     },
     header: {
-      logout: "Logout"
-    }
+      logout: 'Logout',
+    },
   },
-  $vuetify: vuetifyMsgs
-};
+  views: {
+    login: {
+      username: 'Username',
+      password: 'Password',
+      submit: 'Submit',
+    },
+  },
+  $vuetify: vuetifyMsgs,
+}
 
-export default msgs;
+export default msgs
