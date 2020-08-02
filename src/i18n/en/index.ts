@@ -21,8 +21,10 @@ const msgs: LocaleMessageObject = {
   },
   users: {
     login: {
+      loading: 'Login...',
       password: 'Password',
       submit: 'Submit',
+      success: 'Login successful! Redirecting soon...',
       title: 'Login',
       username: 'Username',
     },

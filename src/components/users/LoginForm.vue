@@ -4,6 +4,13 @@
       <v-card-title v-text="$t('users.login.title')"></v-card-title>
 
       <v-card-text>
+        <v-alert v-if="status === 'loading'" type="info">
+          {{ $t(`users.login.${status}`) }}
+        </v-alert>
+        <v-alert v-else-if="status === 'success'" type="success">
+          {{ $t(`users.login.${status}`) }}
+        </v-alert>
+
         <v-text-field
           v-model="value.username"
           autocomplete="username"
@@ -38,16 +45,18 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api'
-import { UserCredential } from '@/models'
+import { UserCredential, ApiReqStatus } from '@/models'
 
 interface Props {
   value: UserCredential
+  status: ApiReqStatus
 }
 
 export default defineComponent({
   name: 'LoginForm',
   props: {
     value: { type: Object as () => UserCredential, required: true },
+    status: { type: String as () => ApiReqStatus, default: 'idle' },
   },
 
   setup(props: Props) {

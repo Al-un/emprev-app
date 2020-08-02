@@ -2,7 +2,7 @@
   <v-container class="fill-height">
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="6">
-        <login-form v-model="credentials" @submit="submit" />
+        <login-form v-model="credentials" :status="status" @submit="submit" />
       </v-col>
     </v-row>
   </v-container>
@@ -17,7 +17,7 @@ import {
   computed,
 } from '@vue/composition-api'
 
-import { UserCredential } from '@/models'
+import { UserCredential, ApiReqStatus } from '@/models'
 import LoginForm from '@/components/users/LoginForm.vue'
 
 export default defineComponent({
@@ -25,18 +25,22 @@ export default defineComponent({
 
   setup(_: {}, ctx: SetupContext) {
     const credentials = reactive<UserCredential>({ username: '', password: '' })
+    const status = ref<ApiReqStatus>('ready')
 
     const submit = async () => {
       try {
+        status.value = 'loading'
         await ctx.root.$store.dispatch('login', credentials)
 
         const nextPageName =
           (ctx.root.$route.query['nextPage'] as string) || 'home'
 
+        status.value = 'success'
         window.setTimeout(() => {
           ctx.root.$router.replace({ name: nextPageName })
         }, 500)
       } catch (err) {
+        status.value = 'error'
         console.log('Error', err)
       }
     }
@@ -44,6 +48,7 @@ export default defineComponent({
     return {
       credentials,
       submit,
+      status,
     }
   },
 })
