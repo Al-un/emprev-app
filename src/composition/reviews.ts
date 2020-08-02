@@ -49,8 +49,6 @@ export const useReviewList = (ctx: SetupContext) => {
       {}
     )
 
-    console.log(reviewsList.list.value)
-
     return reviewsList.list.value.map(
       (r): Review => ({
         ...r,

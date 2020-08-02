@@ -6,11 +6,17 @@
       "
     ></v-card-title>
 
-    <v-form class="user-form" @submit.prevent="form.submit">
+    <v-form
+      ref="formRef"
+      v-model="isFormValid"
+      class="user-form"
+      @submit.prevent="submit"
+    >
       <v-card-text>
         <v-text-field
           v-model="value.username"
           :label="$t('users.form.username')"
+          :rules="[ruleIsRequired]"
           required
         ></v-text-field>
 
@@ -19,6 +25,7 @@
           v-model="value.password"
           :label="$t('users.form.password')"
           type="password"
+          :rules="[ruleIsRequired]"
           required
         ></v-text-field>
 
@@ -54,6 +61,7 @@
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
 import { User } from '../../models'
+import { useForm } from '../../composition/base'
 
 interface Props {
   value: User
@@ -65,13 +73,19 @@ export default defineComponent({
   },
 
   setup(_: Props, ctx: SetupContext) {
+    const { formRef, isFormValid, ruleIsRequired } = useForm(ctx)
+
     const submit = () => {
-      ctx.emit('submit')
+      if (formRef) {
+        ;(formRef.value as any).validate()
+      }
+
+      if (isFormValid.value) {
+        ctx.emit('submit')
+      }
     }
 
-    return {
-      form: { submit },
-    }
+    return { formRef, isFormValid, ruleIsRequired, submit }
   },
 })
 </script>

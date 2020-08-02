@@ -8,7 +8,7 @@ import { useAuthToken } from './auth'
  * Sets of form validation rules, vuetify-compliant
  * @param ctx
  */
-export const useRules = (ctx: SetupContext) => {
+export const useForm = (ctx: SetupContext) => {
   const formRef = ref(null)
   const isFormValid = ref(false)
 

@@ -7,7 +7,7 @@
       :items-per-page="15"
     ></v-data-table>
 
-    <v-dialog v-model="showDialog" persistent>
+    <v-dialog v-model="showDialog" persistent :width="500">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           fab
@@ -23,7 +23,14 @@
         </v-btn>
       </template>
 
-      <v-card v-if="currentReview">
+      <review-form-new
+        v-if="currentReview"
+        v-model="currentReview"
+        :users="users"
+        @cancel="cancel"
+        @submit="submitReview"
+      ></review-form-new>
+      <!-- <v-card v-if="currentReview">
         <v-card-title class="headline">
           {{ $t('reviews.form.new.title') }}
         </v-card-title>
@@ -66,17 +73,19 @@
             </v-btn>
           </v-card-actions>
         </v-form>
-      </v-card>
+      </v-card> -->
     </v-dialog>
   </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent, SetupContext, ref, watch } from '@vue/composition-api'
-import { useReviewList } from '../../composition'
+
+import ReviewFormNew from '@/components/reviews/ReviewFormNew.vue'
+import { useReviewList } from '@/composition'
 
 export default defineComponent({
-  components: {},
+  components: { ReviewFormNew },
 
   setup(_: {}, ctx: SetupContext) {
     const headers = [

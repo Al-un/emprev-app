@@ -52,7 +52,7 @@
 import { defineComponent, ref, SetupContext } from '@vue/composition-api'
 
 import { UserCredential, ApiReqStatus } from '@/models'
-import { useRules } from '../../composition/base'
+import { useForm } from '../../composition/base'
 
 interface Props {
   value: UserCredential
@@ -69,7 +69,7 @@ export default defineComponent({
   setup(props: Props, ctx: SetupContext) {
     const showPassword = ref(false)
     const togglePwdVisibility = () => (showPassword.value = !showPassword.value)
-    const { formRef, isFormValid, ruleIsRequired } = useRules(ctx)
+    const { formRef, isFormValid, ruleIsRequired } = useForm(ctx)
 
     const submit = () => {
       if (formRef) {
