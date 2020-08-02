@@ -1,27 +1,33 @@
 <template>
   <v-card>
-    <v-card-title>##New user</v-card-title>
+    <v-card-title
+      v-text="
+        value.id ? $t('users.form.title.update') : $t('users.form.title.create')
+      "
+    ></v-card-title>
 
     <v-form class="user-form" @submit.prevent="form.submit">
       <v-card-text>
         <v-text-field
           v-model="value.username"
-          label="XXUserName"
+          :label="$t('users.form.username')"
           required
         ></v-text-field>
 
         <v-text-field
           v-if="value.id === undefined"
           v-model="value.password"
-          label="XXPassword"
+          :label="$t('users.form.password')"
           type="password"
           required
         ></v-text-field>
 
         <div class="user-attributes">
-          <label for="adminStatus">XXIsAdmin</label>
+          <label for="adminStatus">{{ $t('users.form.adminStatus') }}</label>
           <v-switch id="adminStatus" v-model="value.isAdmin"></v-switch>
-          <label for="deletedStatus">XXIsDeleted</label>
+          <label for="deletedStatus">{{
+            $t('users.form.deletedStatus')
+          }}</label>
           <v-switch id="deletedStatus" v-model="value.isDeleted"></v-switch>
         </div>
       </v-card-text>
@@ -31,10 +37,14 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn class="mr-4" @click="$emit('cancel')">
-          XXCancel
+          {{ $t('users.form.cancel') }}
         </v-btn>
         <v-btn class="mr-4" type="submit">
-          XXSubmit
+          {{
+            value.id
+              ? $t('users.form.submit.update')
+              : $t('users.form.submit.create')
+          }}
         </v-btn>
       </v-card-actions>
     </v-form>

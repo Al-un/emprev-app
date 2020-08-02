@@ -1,13 +1,13 @@
 <template>
   <v-card>
     <v-form @submit.prevent="$emit('submit')">
-      <v-card-title>XXLogin</v-card-title>
+      <v-card-title v-text="$t('users.login.title')"></v-card-title>
 
       <v-card-text>
         <v-text-field
           v-model="value.username"
           autocomplete="username"
-          :label="$t('views.login.username')"
+          :label="$t('users.login.username')"
           prepend-icon="mdi-account"
           required
           type="text"
@@ -16,7 +16,7 @@
           v-model="value.password"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           autocomplete="current-password"
-          :label="$t('views.login.password')"
+          :label="$t('users.login.password')"
           prepend-icon="mdi-lock"
           required
           :type="showPassword ? 'text' : 'password'"
@@ -29,7 +29,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="primary" type="submit">{{
-          $t('views.login.submit')
+          $t('users.login.submit')
         }}</v-btn>
       </v-card-actions>
     </v-form>

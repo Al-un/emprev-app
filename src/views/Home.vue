@@ -3,15 +3,20 @@
     <v-row v-if="currentReview" align="center" justify="center">
       <v-col cols="12" sm="8" md="6">
         <v-card>
-          <v-card-title class="headline">
-            XXreview
+          <v-card-title class="headline"
+            >{{
+              $t('reviews.dashboard.form.title', [
+                currentReview.reviewedUser.username,
+              ])
+            }}
           </v-card-title>
+
+          <v-card-subtitle>{{
+            $t('reviews.dashboard.form.subtitle', [currentReview.period])
+          }}</v-card-subtitle>
 
           <v-form @submit.prevent="submitReview">
             <v-card-text>
-              <div>Reviewed: {{ currentReview.reviewedUser.username }}</div>
-              <div>Period: {{ currentReview.period }}</div>
-
               <v-slider
                 v-model="currentReview.score"
                 :min="1"
@@ -22,7 +27,7 @@
 
               <v-text-field
                 v-model="currentReview.comment"
-                label="XXComment"
+                :label="$t('reviews.dashboard.form.comment')"
                 required
                 type="text"
               ></v-text-field>
@@ -32,11 +37,11 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" text @click="cancel">
-                XXCancelReview
+              <v-btn color="accent" text @click="cancel">
+                {{ $t('reviews.dashboard.form.cancel') }}
               </v-btn>
-              <v-btn type="submit">
-                XXSubmitReview
+              <v-btn color="primary" type="submit">
+                {{ $t('reviews.dashboard.form.submit') }}
               </v-btn>
             </v-card-actions>
           </v-form>
@@ -45,13 +50,15 @@
     </v-row>
 
     <div v-else>
-      <h2>XXReviews</h2>
+      <h2>{{ $t('reviews.dashboard.list.title') }}</h2>
 
-      <p>XXOnce submitted, reviews cannot be modified</p>
+      <p>{{ $t('reviews.dashboard.list.description') }}</p>
 
       <v-divider></v-divider>
       <v-list v-for="reviewGroup in reviewsByPeriod" :key="reviewGroup.period">
-        <v-subheader>XX Period: {{ reviewGroup.period }}</v-subheader>
+        <v-subheader
+          v-text="$t('reviews.dashboard.list.period', [reviewGroup.period])"
+        ></v-subheader>
 
         <v-list-item
           v-for="review in reviewGroup.reviews"
@@ -65,10 +72,12 @@
 
           <v-list-item-content>
             <v-list-item-title
-              ><span
-                >XXTo review user: {{ review.reviewedUser.username }}</span
-              ></v-list-item-title
-            >
+              v-text="
+                $t('reviews.dashboard.list.reviewed', [
+                  review.reviewedUser.username,
+                ])
+              "
+            ></v-list-item-title>
 
             <template v-if="review.score">
               <v-list-item-subtitle>

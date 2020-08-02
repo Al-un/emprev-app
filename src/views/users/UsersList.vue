@@ -11,7 +11,7 @@
     </v-row>
 
     <template v-else>
-      <h1>##Users</h1>
+      <h1>{{ $t('users.list.title') }}</h1>
       <user-grid
         :users="users"
         @user-new="prepareForCreate"

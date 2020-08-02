@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>##Created reviews</h1>
+    <h1>{{ $t('reviews.mgmt.title') }}</h1>
     <v-data-table
       :headers="headers"
       :items="reviews"
@@ -25,14 +25,14 @@
 
       <v-card v-if="currentReview">
         <v-card-title class="headline grey lighten-2">
-          XXNew review
+          {{ $t('reviews.form.new.title') }}
         </v-card-title>
 
         <v-form @submit.prevent="submitReview">
           <v-card-text>
             <v-text-field
               v-model="currentReview.period"
-              label="XXPeriod"
+              :label="$t('reviews.form.new.period')"
               required
               type="text"
             ></v-text-field>
@@ -42,7 +42,7 @@
               :items="users"
               item-text="username"
               item-value="id"
-              label="XXReviewerUserId"
+              :label="$t('reviews.form.new.reviewer')"
             ></v-select>
 
             <v-select
@@ -50,7 +50,7 @@
               :items="users"
               item-text="username"
               item-value="id"
-              label="XXReviewedUserId"
+              :label="$t('reviews.form.new.reviewed')"
             ></v-select>
           </v-card-text>
 
@@ -59,10 +59,10 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click="cancel">
-              XXCancelReview
+              {{ $t('reviews.form.new.cancel') }}
             </v-btn>
             <v-btn type="submit">
-              XXSubmitReview
+              {{ $t('reviews.form.new.submit') }}
             </v-btn>
           </v-card-actions>
         </v-form>
@@ -80,11 +80,17 @@ export default defineComponent({
 
   setup(_: {}, ctx: SetupContext) {
     const headers = [
-      { text: 'XXReviewer', value: 'reviewerUser.username' },
-      { text: 'XXReviewed', value: 'reviewedUser.username' },
-      { text: 'XXScore', value: 'score' },
-      { text: 'XXPeriod', value: 'period' },
-      { text: 'XXComment', value: 'comment' },
+      {
+        text: ctx.root.$t('reviews.mgmt.list.reviewer'),
+        value: 'reviewerUser.username',
+      },
+      {
+        text: ctx.root.$t('reviews.mgmt.list.reviewed'),
+        value: 'reviewedUser.username',
+      },
+      { text: ctx.root.$t('reviews.mgmt.list.score'), value: 'score' },
+      { text: ctx.root.$t('reviews.mgmt.list.period'), value: 'period' },
+      { text: ctx.root.$t('reviews.mgmt.list.comment'), value: 'comment' },
     ]
     const reviews = useReviewList(ctx)
 
