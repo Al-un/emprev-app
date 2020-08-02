@@ -81,6 +81,7 @@ export default defineComponent({
   .user-attributes {
     display: grid;
     grid-template-columns: 3fr 1fr;
+    align-items: center;
 
     label + * {
       justify-self: end;

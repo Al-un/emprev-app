@@ -29,7 +29,7 @@ const msgs: LocaleMessageObject = {
     form: {
       adminStatus: 'Administrator',
       cancel: 'Cancel',
-      deletedStatus: 'Deleted user (next feature)',
+      deletedStatus: 'Deleted user',
       password: 'Password',
       submit: {
         create: 'Create user',

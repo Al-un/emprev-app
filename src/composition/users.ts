@@ -28,17 +28,30 @@ export const useUserList = (ctx: SetupContext) => {
     async (token, value) => {
       const updatedUser = await api.user.update({ token, value })
       list.list.value.forEach(u => {
-        if (u.id === updatedUser.id) u = updatedUser
+        if (u.id === updatedUser.id) {
+          u.isAdmin = updatedUser.isAdmin
+          u.isDeleted = updatedUser.isDeleted
+          u.username = updatedUser.username
+        }
       })
 
       return updatedUser
     }
   )
 
+  const deleteUser = (user: User) => {
+    list.deleteEntity(user)
+    list.list.value.forEach(u => {
+      if (u.id === user.id) {
+        u.isDeleted = true
+      }
+    })
+  }
+
   return {
     users: list.list,
     loading: list.loading || crud.loading,
-    deleteUser: list.deleteEntity,
+    deleteUser,
     cancelUserForm: crud.cancel,
     currentUser: crud.current,
     prepareForCreate: crud.prepareForCreate,

@@ -99,8 +99,7 @@ export const useEntityList = <E extends Entity>(
 
   const deleteEntity = async (entity: E) => {
     await deleteMethod(token.value, entity)
-
-    list.value = list.value.filter(e => e.id !== entity.id)
+    // list.value = list.value.filter(e => e.id !== entity.id)
   }
 
   return {
