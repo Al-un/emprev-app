@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 
 import Home from '@/views/Home.vue'
-import Login from '@/views/Login.vue'
+import Login from '@/views/users/Login.vue'
 import UsersList from '@/views/users/UsersList.vue'
 import ReviewsList from '@/views/reviews/ReviewsList.vue'
 import { isAuthenticated } from '@/utils'

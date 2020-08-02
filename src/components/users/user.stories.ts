@@ -7,6 +7,7 @@ import UserCard from './UserCard.vue'
 import UserCardAdd from './UserCardAdd.vue'
 import UserForm from './UserForm.vue'
 import UserGrid from './UserGrid.vue'
+import LoginForm from './LoginForm.vue'
 
 const mockUser: User = {
   id: '123',
@@ -16,6 +17,15 @@ const mockUser: User = {
 }
 
 storiesOf('Users', module)
+  .add('LoginForm', () => ({
+    template: `<login-form v-model="credentials" />`,
+    components: { LoginForm },
+    data() {
+      return {
+        credentials: { username: '', password: '' },
+      }
+    },
+  }))
   .add('UserCard', () => ({
     template: `<user-card :user="user" />`,
     components: { UserCard },
