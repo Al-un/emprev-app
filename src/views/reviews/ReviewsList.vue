@@ -24,7 +24,7 @@
       </template>
 
       <v-card v-if="currentReview">
-        <v-card-title class="headline grey lighten-2">
+        <v-card-title class="headline">
           {{ $t('reviews.form.new.title') }}
         </v-card-title>
 
@@ -58,10 +58,10 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="cancel">
+            <v-btn color="accent" text @click="cancel">
               {{ $t('reviews.form.new.cancel') }}
             </v-btn>
-            <v-btn type="submit">
+            <v-btn color="primary" type="submit">
               {{ $t('reviews.form.new.submit') }}
             </v-btn>
           </v-card-actions>

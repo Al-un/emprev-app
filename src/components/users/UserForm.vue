@@ -36,10 +36,10 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn class="mr-4" @click="$emit('cancel')">
+        <v-btn color="accent" text @click="$emit('cancel')">
           {{ $t('users.form.cancel') }}
         </v-btn>
-        <v-btn class="mr-4" type="submit">
+        <v-btn color="primary" type="submit">
           {{
             value.id
               ? $t('users.form.submit.update')
