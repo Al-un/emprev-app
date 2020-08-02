@@ -44,7 +44,7 @@ export default defineComponent({
     grid-template-columns: repeat(3, 1fr);
   }
   @include responsive(desktop) {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 </style>

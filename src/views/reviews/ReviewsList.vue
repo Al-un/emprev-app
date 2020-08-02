@@ -1,48 +1,58 @@
 <template>
-  <div>
-    <div>{{ loading }}</div>
-
+  <v-container>
+    <h1>##Created reviews</h1>
     <v-data-table
       :headers="headers"
       :items="reviews"
-      :items-per-page="20"
+      :items-per-page="15"
     ></v-data-table>
 
     <v-dialog v-model="showDialog" persistent>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-bind="attrs" v-on="on" @click="prepareForCreate">
-          XXCreateReview
+        <v-btn
+          fab
+          fixed
+          bottom
+          right
+          color="secondary"
+          v-bind="attrs"
+          v-on="on"
+          @click="prepareForCreate"
+        >
+          <v-icon>mdi-plus</v-icon>
         </v-btn>
       </template>
 
       <v-card v-if="currentReview">
         <v-card-title class="headline grey lighten-2">
-          XX New review
+          XXNew review
         </v-card-title>
 
         <v-form @submit.prevent="submitReview">
-          <v-text-field
-            v-model="currentReview.period"
-            label="XXPeriod"
-            required
-            type="text"
-          ></v-text-field>
+          <v-card-text>
+            <v-text-field
+              v-model="currentReview.period"
+              label="XXPeriod"
+              required
+              type="text"
+            ></v-text-field>
 
-          <v-select
-            v-model="currentReview.reviewerUserId"
-            :items="users"
-            item-text="username"
-            item-value="id"
-            label="XXReviewerUserId"
-          ></v-select>
+            <v-select
+              v-model="currentReview.reviewerUserId"
+              :items="users"
+              item-text="username"
+              item-value="id"
+              label="XXReviewerUserId"
+            ></v-select>
 
-          <v-select
-            v-model="currentReview.reviewedUserId"
-            :items="users"
-            item-text="username"
-            item-value="id"
-            label="XXReviewedUserId"
-          ></v-select>
+            <v-select
+              v-model="currentReview.reviewedUserId"
+              :items="users"
+              item-text="username"
+              item-value="id"
+              label="XXReviewedUserId"
+            ></v-select>
+          </v-card-text>
 
           <v-divider></v-divider>
 
@@ -58,7 +68,7 @@
         </v-form>
       </v-card>
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">

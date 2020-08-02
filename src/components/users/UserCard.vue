@@ -2,12 +2,13 @@
   <v-card class="user-card">
     <v-card-title>{{ user.username }}</v-card-title>
 
-    <v-card-actions class="d-flex justify-end">
-      <v-btn class="mr-4" @click="$emit('user-edit', user)">
-        XXEdit
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="info" @click="$emit('user-edit', user)">
+        <v-icon>mdi-pencil</v-icon>
       </v-btn>
-      <v-btn class="mr-4" @click="$emit('user-delete', user)">
-        XXDelete
+      <v-btn color="error" @click="$emit('user-delete', user)">
+        <v-icon>mdi-delete</v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -32,12 +33,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss">
-.user-card {
-  &:hover,
-  &:focus {
-    cursor: pointer;
-  }
-}
-</style>

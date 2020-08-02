@@ -1,20 +1,25 @@
 <template>
-  <div>
-    <div>{{ loading }}</div>
-    <user-form
-      v-if="currentUser"
-      v-model="currentUser"
-      @cancel="cancelUserForm"
-      @submit="submitUserForm"
-    />
-    <user-grid
-      v-else
-      :users="users"
-      @user-new="prepareForCreate"
-      @user-edit="prepareForUpdate"
-      @user-delete="deleteUser"
-    />
-  </div>
+  <v-container>
+    <v-row v-if="currentUser" align="center" justify="center">
+      <v-col cols="12" sm="8" md="6">
+        <user-form
+          v-model="currentUser"
+          @cancel="cancelUserForm"
+          @submit="submitUserForm"
+        />
+      </v-col>
+    </v-row>
+
+    <template v-else>
+      <h1>##Users</h1>
+      <user-grid
+        :users="users"
+        @user-new="prepareForCreate"
+        @user-edit="prepareForUpdate"
+        @user-delete="deleteUser"
+      />
+    </template>
+  </v-container>
 </template>
 
 <script lang="ts">

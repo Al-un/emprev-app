@@ -1,35 +1,44 @@
 <template>
-  <v-form class="user-form">
-    <v-text-field
-      v-model="value.username"
-      label="XXUserName"
-      required
-    ></v-text-field>
+  <v-card>
+    <v-card-title>##New user</v-card-title>
 
-    <v-text-field
-      v-if="value.id === undefined"
-      v-model="value.password"
-      label="XXPassword"
-      type="password"
-      required
-    ></v-text-field>
+    <v-form class="user-form" @submit.prevent="form.submit">
+      <v-card-text>
+        <v-text-field
+          v-model="value.username"
+          label="XXUserName"
+          required
+        ></v-text-field>
 
-    <div class="user-attributes">
-      <label for="adminStatus">XXIsAdmin</label>
-      <v-switch id="adminStatus" v-model="value.isAdmin"></v-switch>
-      <label for="deletedStatus">XXIsDeleted</label>
-      <v-switch id="deletedStatus" v-model="value.isDeleted"></v-switch>
-    </div>
+        <v-text-field
+          v-if="value.id === undefined"
+          v-model="value.password"
+          label="XXPassword"
+          type="password"
+          required
+        ></v-text-field>
 
-    <v-container class="d-flex justify-end">
-      <v-btn class="mr-4" @click="$emit('cancel')">
-        XXCancel
-      </v-btn>
-      <v-btn class="mr-4" @click="form.submit">
-        XXSubmit
-      </v-btn>
-    </v-container>
-  </v-form>
+        <div class="user-attributes">
+          <label for="adminStatus">XXIsAdmin</label>
+          <v-switch id="adminStatus" v-model="value.isAdmin"></v-switch>
+          <label for="deletedStatus">XXIsDeleted</label>
+          <v-switch id="deletedStatus" v-model="value.isDeleted"></v-switch>
+        </div>
+      </v-card-text>
+
+      <v-divider></v-divider>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn class="mr-4" @click="$emit('cancel')">
+          XXCancel
+        </v-btn>
+        <v-btn class="mr-4" type="submit">
+          XXSubmit
+        </v-btn>
+      </v-card-actions>
+    </v-form>
+  </v-card>
 </template>
 
 <script lang="ts">
