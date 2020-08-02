@@ -1,6 +1,26 @@
 import { ref, UnwrapRef, SetupContext, onMounted } from '@vue/composition-api'
+import { InputValidationRule } from 'vuetify/types'
+
 import { Entity } from '@/models'
 import { useAuthToken } from './auth'
+
+/**
+ * Sets of form validation rules, vuetify-compliant
+ * @param ctx
+ */
+export const useRules = (ctx: SetupContext) => {
+  const formRef = ref(null)
+  const isFormValid = ref(false)
+
+  const ruleIsRequired: InputValidationRule = (val: any) => {
+    if (!val) {
+      return ctx.root.$t('common.form.required') as string
+    }
+    return true
+  }
+
+  return { formRef, isFormValid, ruleIsRequired }
+}
 
 /**
  * Generic definition for a CRUD management for an entity. Specically, this

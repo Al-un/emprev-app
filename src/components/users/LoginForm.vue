@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-form @submit.prevent="$emit('submit')">
+    <v-form ref="formRef" v-model="isFormValid" @submit.prevent="submit">
       <v-card-title v-text="$t('users.login.title')"></v-card-title>
 
       <v-card-text>
@@ -10,12 +10,16 @@
         <v-alert v-else-if="status === 'success'" type="success">
           {{ $t(`users.login.${status}`) }}
         </v-alert>
+        <v-alert v-else-if="status === 'error'" type="error">
+          {{ $t(`users.login.${status}`) }}
+        </v-alert>
 
         <v-text-field
           v-model="value.username"
           autocomplete="username"
           :label="$t('users.login.username')"
           prepend-icon="mdi-account"
+          :rules="[ruleIsRequired]"
           required
           type="text"
         ></v-text-field>
@@ -25,6 +29,7 @@
           autocomplete="current-password"
           :label="$t('users.login.password')"
           prepend-icon="mdi-lock"
+          :rules="[ruleIsRequired]"
           required
           :type="showPassword ? 'text' : 'password'"
           @click:append="togglePwdVisibility"
@@ -44,8 +49,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api'
+import { defineComponent, ref, SetupContext } from '@vue/composition-api'
+
 import { UserCredential, ApiReqStatus } from '@/models'
+import { useRules } from '../../composition/base'
 
 interface Props {
   value: UserCredential
@@ -59,12 +66,27 @@ export default defineComponent({
     status: { type: String as () => ApiReqStatus, default: 'idle' },
   },
 
-  setup(props: Props) {
+  setup(props: Props, ctx: SetupContext) {
     const showPassword = ref(false)
     const togglePwdVisibility = () => (showPassword.value = !showPassword.value)
+    const { formRef, isFormValid, ruleIsRequired } = useRules(ctx)
+
+    const submit = () => {
+      if (formRef) {
+        ;(formRef.value as any).validate()
+      }
+
+      if (isFormValid.value) {
+        ctx.emit('submit')
+      }
+    }
 
     return {
+      isFormValid,
+      formRef,
+      ruleIsRequired,
       showPassword,
+      submit,
       togglePwdVisibility,
     }
   },

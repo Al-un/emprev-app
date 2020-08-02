@@ -19,8 +19,14 @@ const msgs: LocaleMessageObject = {
       logout: 'Logout',
     },
   },
+  common: {
+    form: {
+      required: 'This is a required field',
+    },
+  },
   users: {
     login: {
+      error: 'Hmmm...login has failed somewhere.',
       loading: 'Login...',
       password: 'Password',
       submit: 'Submit',

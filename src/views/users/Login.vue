@@ -28,6 +28,11 @@ export default defineComponent({
     const status = ref<ApiReqStatus>('ready')
 
     const submit = async () => {
+      if (!credentials.username || !credentials.password) {
+        status.value = 'error'
+        return
+      }
+
       try {
         status.value = 'loading'
         await ctx.root.$store.dispatch('login', credentials)
