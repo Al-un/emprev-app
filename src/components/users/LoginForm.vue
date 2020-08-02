@@ -52,7 +52,7 @@
 import { defineComponent, ref, SetupContext } from '@vue/composition-api'
 
 import { UserCredential, ApiReqStatus } from '@/models'
-import { useForm } from '../../composition/base'
+import { useForm } from '@/composition'
 
 interface Props {
   value: UserCredential

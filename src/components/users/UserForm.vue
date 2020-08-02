@@ -60,8 +60,8 @@
 
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
-import { User } from '../../models'
-import { useForm } from '../../composition/base'
+import { User } from '@/models'
+import { useForm } from '@/composition'
 
 interface Props {
   value: User

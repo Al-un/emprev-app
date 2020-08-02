@@ -30,50 +30,6 @@
         @cancel="cancel"
         @submit="submitReview"
       ></review-form-new>
-      <!-- <v-card v-if="currentReview">
-        <v-card-title class="headline">
-          {{ $t('reviews.form.new.title') }}
-        </v-card-title>
-
-        <v-form @submit.prevent="submitReview">
-          <v-card-text>
-            <v-text-field
-              v-model="currentReview.period"
-              :label="$t('reviews.form.new.period')"
-              required
-              type="text"
-            ></v-text-field>
-
-            <v-select
-              v-model="currentReview.reviewerUserId"
-              :items="users"
-              item-text="username"
-              item-value="id"
-              :label="$t('reviews.form.new.reviewer')"
-            ></v-select>
-
-            <v-select
-              v-model="currentReview.reviewedUserId"
-              :items="users"
-              item-text="username"
-              item-value="id"
-              :label="$t('reviews.form.new.reviewed')"
-            ></v-select>
-          </v-card-text>
-
-          <v-divider></v-divider>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="accent" text @click="cancel">
-              {{ $t('reviews.form.new.cancel') }}
-            </v-btn>
-            <v-btn color="primary" type="submit">
-              {{ $t('reviews.form.new.submit') }}
-            </v-btn>
-          </v-card-actions>
-        </v-form>
-      </v-card> -->
     </v-dialog>
   </v-container>
 </template>
