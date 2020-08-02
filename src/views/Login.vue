@@ -1,30 +1,45 @@
 <template>
-  <v-form ref="loginForm" @submit.prevent="submit">
-    <v-text-field
-      v-model="credentials.username"
-      autocomplete="username"
-      :label="$t('views.login.username')"
-      prepend-icon="mdi-account"
-      required
-      type="text"
-    ></v-text-field>
-    <v-text-field
-      v-model="credentials.password"
-      :append-icon="
-        showPassword ? (showPassword ? 'mdi-eye' : 'mdi-eye-off') : ''
-      "
-      autocomplete="current-password"
-      :label="$t('views.login.password')"
-      prepend-icon="mdi-lock"
-      required
-      :type="showPassword ? 'text' : 'password'"
-      @click:append="togglePwdVisibility"
-    ></v-text-field>
+  <v-container class="fill-height">
+    <v-row align="center" justify="center">
+      <v-col cols="12" sm="8" md="6">
+        <v-card>
+          <v-form @submit.prevent="submit">
+            <v-card-title>XXLogin</v-card-title>
 
-    <v-btn block color="primary" type="submit">{{
-      $t('views.login.submit')
-    }}</v-btn>
-  </v-form>
+            <v-card-text>
+              <v-text-field
+                v-model="credentials.username"
+                autocomplete="username"
+                :label="$t('views.login.username')"
+                prepend-icon="mdi-account"
+                required
+                type="text"
+              ></v-text-field>
+              <v-text-field
+                v-model="credentials.password"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                autocomplete="current-password"
+                :label="$t('views.login.password')"
+                prepend-icon="mdi-lock"
+                required
+                :type="showPassword ? 'text' : 'password'"
+                @click:append="togglePwdVisibility"
+              ></v-text-field>
+            </v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" type="submit">{{
+                $t('views.login.submit')
+              }}</v-btn>
+            </v-card-actions>
+          </v-form>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -33,6 +48,7 @@ import {
   SetupContext,
   reactive,
   ref,
+  computed,
 } from '@vue/composition-api'
 import { UserCredential } from '../models'
 
@@ -57,7 +73,12 @@ export default defineComponent({
       }
     }
 
-    return { credentials, showPassword, togglePwdVisibility, submit }
+    return {
+      credentials,
+      showPassword,
+      togglePwdVisibility,
+      submit,
+    }
   },
 })
 </script>
