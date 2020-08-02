@@ -34,7 +34,7 @@ class ApiReview extends ApiBase {
   async update(payload: ApiReqPayload<Review>): Promise<Review> {
     const review = payload.value
 
-    const resp: AxiosResponse<Review> = await this.httpClient.put(
+    const resp: AxiosResponse<Review> = await this.httpClient.patch(
       `/reviews/${review.reviewerUserId}/${review.id}/`,
       review,
       { headers: this.buildAuthHeaders(payload) }

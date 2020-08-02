@@ -15,7 +15,7 @@ export interface User extends Entity {
 export interface Review extends Entity {
   reviewerUserId: string
   reviewedUserId: string
-  period?: string
+  period: string
   score?: number
   comment?: string
   reviewerUser?: {
@@ -26,4 +26,9 @@ export interface Review extends Entity {
     id: string
     username: string
   }
+}
+
+export interface ReviewByPeriod {
+  period: string
+  reviews: Review[]
 }
