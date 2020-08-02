@@ -40,7 +40,7 @@ export const useEntityCrud = <E extends Entity>(
    * @param entity to be edited entity
    */
   const prepareForUpdate = (entity: UnwrapRef<E>) => {
-    current.value = entity
+    current.value = JSON.parse(JSON.stringify(entity))
   }
 
   /**
