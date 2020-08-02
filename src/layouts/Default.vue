@@ -1,6 +1,11 @@
 <template>
   <v-app :dark="layout.dark">
-    <v-navigation-drawer v-model="layout.drawer" app clipped>
+    <v-navigation-drawer
+      v-if="user.isLogged"
+      v-model="layout.drawer"
+      app
+      clipped
+    >
       <v-list>
         <v-list-item to="/" router exact>
           <v-list-item-icon>
@@ -46,7 +51,10 @@
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left>
-      <v-app-bar-nav-icon @click.stop="layout.drawer = !layout.drawer" />
+      <v-app-bar-nav-icon
+        v-if="user.isLogged"
+        @click.stop="layout.drawer = !layout.drawer"
+      />
       <v-spacer />
       <div v-if="user.isLogged">
         <v-btn @click="logout">{{ $t('nav.header.logout') }}</v-btn>
