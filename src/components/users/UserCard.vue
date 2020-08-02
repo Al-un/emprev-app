@@ -2,7 +2,7 @@
   <v-card class="user-card">
     <v-card-title>{{ user.username }}</v-card-title>
 
-    <v-card-actions>
+    <v-card-actions v-if="!user.isRoot">
       <v-spacer></v-spacer>
       <v-btn color="info" @click="$emit('user-edit', user)">
         <v-icon>mdi-pencil</v-icon>
