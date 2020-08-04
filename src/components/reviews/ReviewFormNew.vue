@@ -1,8 +1,10 @@
 <template>
   <v-card>
-    <v-card-title class="headline">
-      {{ $t('reviews.form.new.title') }}
-    </v-card-title>
+    <v-toolbar color="primary" dark>
+      <v-toolbar-title class="headline">
+        {{ $t('reviews.form.new.title') }}
+      </v-toolbar-title>
+    </v-toolbar>
 
     <v-form ref="formRef" v-model="isFormValid" @submit.prevent="submit">
       <v-card-text>

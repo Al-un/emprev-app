@@ -1,10 +1,14 @@
 <template>
   <v-card>
-    <v-card-title
-      v-text="
-        value.id ? $t('users.form.title.update') : $t('users.form.title.create')
-      "
-    ></v-card-title>
+    <v-toolbar color="primary" dark>
+      <v-toolbar-title class="headline">
+        {{
+          value.id
+            ? $t('users.form.title.update')
+            : $t('users.form.title.create')
+        }}
+      </v-toolbar-title>
+    </v-toolbar>
 
     <v-form
       ref="formRef"

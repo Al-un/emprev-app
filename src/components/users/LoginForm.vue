@@ -1,8 +1,12 @@
 <template>
   <v-card>
-    <v-form ref="formRef" v-model="isFormValid" @submit.prevent="submit">
-      <v-card-title v-text="$t('users.login.title')"></v-card-title>
+    <v-toolbar color="primary" dark>
+      <v-toolbar-title class="headline">
+        EmpRev - {{ $t('users.login.title') }}
+      </v-toolbar-title>
+    </v-toolbar>
 
+    <v-form ref="formRef" v-model="isFormValid" @submit.prevent="submit">
       <v-card-text>
         <v-alert v-if="status === 'loading'" type="info">
           {{ $t(`users.login.${status}`) }}

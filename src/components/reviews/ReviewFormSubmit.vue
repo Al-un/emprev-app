@@ -1,10 +1,7 @@
 <template>
   <v-card>
-    <!-- <v-card-title class="headline"
-      >{{ $t('reviews.dashboard.form.title', [value.reviewedUser.username]) }}
-    </v-card-title> -->
     <v-toolbar color="primary" dark>
-      <v-toolbar-title>
+      <v-toolbar-title class="headline">
         {{ $t('reviews.dashboard.form.title', [value.reviewedUser.username]) }}
       </v-toolbar-title>
     </v-toolbar>
