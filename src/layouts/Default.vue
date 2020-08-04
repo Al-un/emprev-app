@@ -9,12 +9,12 @@
       <v-list>
         <v-list-item to="/" router exact>
           <v-list-item-icon>
-            <v-icon>mdi-apps</v-icon>
+            <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ $t('nav.menu.home') }}</v-list-item-title>
         </v-list-item>
 
-        <v-list-group v-if="user.isAdmin">
+        <v-list-group v-if="user.isAdmin" prepend-icon="mdi-account">
           <template v-slot:activator>
             <v-list-item-title>{{
               $t('nav.menu.users.title')
@@ -23,7 +23,7 @@
 
           <v-list-item to="/users" router exact>
             <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
+              <v-icon>mdi-account-box-multiple</v-icon>
             </v-list-item-icon>
             <v-list-item-title>{{
               $t('nav.menu.users.list')
@@ -31,7 +31,7 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-group v-if="user.isAdmin">
+        <v-list-group v-if="user.isAdmin" prepend-icon="mdi-gavel">
           <template v-slot:activator>
             <v-list-item-title>{{
               $t('nav.menu.reviews.title')
@@ -40,7 +40,7 @@
 
           <v-list-item to="/reviews" router exact>
             <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
+              <v-icon>mdi-briefcase-edit</v-icon>
             </v-list-item-icon>
             <v-list-item-title>{{
               $t('nav.menu.reviews.list')
@@ -48,6 +48,17 @@
           </v-list-item>
         </v-list-group>
       </v-list>
+
+      <template #append>
+        <v-divider></v-divider>
+        <v-container>
+          <v-row align="center" justify="center">
+            <v-icon>mdi-weather-sunny</v-icon>
+            <v-switch v-model="layout.dark" color="primary" class="mx-4" />
+            <v-icon>mdi-weather-night</v-icon>
+          </v-row>
+        </v-container>
+      </template>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left>
@@ -57,7 +68,10 @@
       />
       <v-spacer />
       <div v-if="user.isLogged">
-        <v-btn @click="logout">{{ $t('nav.header.logout') }}</v-btn>
+        <v-btn @click="logout">
+          <span>{{ $t('nav.header.logout') }}</span>
+          <v-icon class="ml-2">mdi-logout</v-icon>
+        </v-btn>
       </div>
       <!-- <v-btn v-else :to="loginDest" nuxt>{{ $t("nav.header.login") }}</v-btn> -->
     </v-app-bar>
@@ -74,17 +88,22 @@ import {
   reactive,
   computed,
   SetupContext,
+  watch,
 } from '@vue/composition-api'
 
 import { isAdmin, isAuthenticated } from '@/utils'
 import { ROUTES } from '@/router'
 
+const EMPREV_DARK = 'emprev_dark'
+
 export default defineComponent({
   name: 'layout-default',
 
   setup(_: {}, ctx: SetupContext) {
+    const isDark = !!localStorage.getItem(EMPREV_DARK) || false
+
     const layout = reactive({
-      dark: false,
+      dark: isDark,
       drawer: false,
     })
 
@@ -97,6 +116,19 @@ export default defineComponent({
       await ctx.root.$store.dispatch('logout')
       ctx.root.$router.push({ name: ROUTES.LOGIN })
     }
+
+    watch(
+      () => layout.dark,
+      (newDarkVal: boolean) => {
+        ctx.root.$vuetify.theme.dark = newDarkVal
+        if (newDarkVal) {
+          localStorage.setItem(EMPREV_DARK, newDarkVal + '')
+        } else {
+          localStorage.removeItem(EMPREV_DARK)
+        }
+      },
+      { immediate: true }
+    )
 
     return { layout, user, logout }
   },
