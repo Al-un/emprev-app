@@ -12,6 +12,9 @@
 
     <template v-else>
       <h1>{{ $t('users.list.title') }}</h1>
+
+      <p class="my-4">{{ $t('users.list.description') }}</p>
+
       <user-grid
         :users="users"
         @user-new="prepareForCreate"

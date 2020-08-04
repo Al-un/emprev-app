@@ -51,6 +51,8 @@ const msgs: LocaleMessageObject = {
     },
     list: {
       title: 'Users',
+      description:
+        'An user password cannot be changed nor reset. Make sure you input the correct password!',
     },
   },
   reviews: {

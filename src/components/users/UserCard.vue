@@ -1,10 +1,11 @@
 <template>
-  <v-card class="user-card">
+  <v-card class="user-card" :class="cardStyle">
     <v-card-title>
       {{ user.username }}
       <v-spacer></v-spacer>
+      <v-icon v-if="user.isAdmin" color="amber">mdi-crown</v-icon>
       <v-icon v-if="user.isDeleted" color="error">mdi-wifi-off</v-icon>
-      <v-icon v-else color="success">mdi-heart</v-icon>
+      <v-icon v-else color="secondary">mdi-heart</v-icon>
     </v-card-title>
 
     <v-card-actions v-if="!user.isRoot">
@@ -24,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, computed, SetupContext } from '@vue/composition-api'
 
 import { User } from '@/models'
 
@@ -37,8 +38,20 @@ export default defineComponent({
     user: { type: Object as () => User, required: true },
   },
 
-  setup() {
-    return {}
+  setup(props: Props, ctx: SetupContext) {
+    const cardStyle = computed(() => {
+      const disabledCssClassName = ctx.root.$vuetify.theme.dark
+        ? 'blue-grey darken-4'
+        : 'blue-grey lighten-3'
+
+      return {
+        [disabledCssClassName]: props.user.isDeleted,
+      }
+    })
+
+    return {
+      cardStyle,
+    }
   },
 })
 </script>
