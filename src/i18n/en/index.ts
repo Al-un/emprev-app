@@ -58,13 +58,18 @@ const msgs: LocaleMessageObject = {
       form: {
         cancel: 'Do it later',
         comment: 'Comment (*)',
+        description:
+          'A performance review is not about judging your peers but help them to improve. Please provide honest and constructive ouputs to improve everyone daily lives. And don\'t forget that "violence is the last refuge of the incompetent".',
         title: 'Employee review: {0}',
+        score: 'Score {0} / 5',
         submit: 'Submit review',
         subtitle: 'Period: {0}',
       },
       list: {
         description:
           'Once submitted, a review cannot be modified. Already submitted reviewed are displayed for reference only.',
+        empty:
+          'There is currently no review for you. Ask an admin to create a review request',
         period: 'Period {0}',
         reviewed: 'To be reviewed employee: {0}',
         title: 'Reviews',

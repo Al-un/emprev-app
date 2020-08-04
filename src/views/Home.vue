@@ -1,51 +1,14 @@
 <template>
   <v-container>
+    <base-loader v-if="loading" />
+
     <v-row v-if="currentReview" align="center" justify="center">
       <v-col cols="12" sm="8" md="6">
-        <v-card>
-          <v-card-title class="headline"
-            >{{
-              $t('reviews.dashboard.form.title', [
-                currentReview.reviewedUser.username,
-              ])
-            }}
-          </v-card-title>
-
-          <v-card-subtitle>{{
-            $t('reviews.dashboard.form.subtitle', [currentReview.period])
-          }}</v-card-subtitle>
-
-          <v-form @submit.prevent="submitReview">
-            <v-card-text>
-              <v-slider
-                v-model="currentReview.score"
-                :min="1"
-                :max="5"
-                :step="1"
-                track-color="primary"
-              ></v-slider>
-
-              <v-text-field
-                v-model="currentReview.comment"
-                :label="$t('reviews.dashboard.form.comment')"
-                required
-                type="text"
-              ></v-text-field>
-            </v-card-text>
-
-            <v-divider></v-divider>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="accent" text @click="cancel">
-                {{ $t('reviews.dashboard.form.cancel') }}
-              </v-btn>
-              <v-btn color="primary" type="submit">
-                {{ $t('reviews.dashboard.form.submit') }}
-              </v-btn>
-            </v-card-actions>
-          </v-form>
-        </v-card>
+        <review-form-submit
+          v-model="currentReview"
+          @cancel="cancel"
+          @submit="submitReview"
+        />
       </v-col>
     </v-row>
 
@@ -55,6 +18,10 @@
       <p>{{ $t('reviews.dashboard.list.description') }}</p>
 
       <v-divider></v-divider>
+      <v-alert v-if="reviewsByPeriod.length === 0 && !loading" type="info">
+        {{ $t('reviews.dashboard.list.empty') }}
+      </v-alert>
+
       <v-list v-for="reviewGroup in reviewsByPeriod" :key="reviewGroup.period">
         <v-subheader
           v-text="$t('reviews.dashboard.list.period', [reviewGroup.period])"
@@ -97,10 +64,11 @@
 <script lang="ts">
 import { defineComponent, SetupContext } from '@vue/composition-api'
 
+import ReviewFormSubmit from '@/components/reviews/ReviewFormSubmit.vue'
 import { useReviewDashboard } from '@/composition'
 
 export default defineComponent({
-  components: {},
+  components: { ReviewFormSubmit },
 
   setup(_: {}, ctx: SetupContext) {
     const reviewDashboard = useReviewDashboard(ctx)
