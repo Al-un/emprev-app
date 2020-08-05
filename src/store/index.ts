@@ -6,8 +6,12 @@ Vue.use(Vuex)
 import { UserCredential, UserJwt } from '@/models'
 import api from '@/api'
 
+// To store the JWT in localStorage
 const TOKEN_KEY = 'authToken'
 
+/**
+ * @todo This interface has to be moved to src/models/
+ */
 interface UserInfo {
   id: string
   username: string
@@ -20,6 +24,10 @@ interface RootState {
 }
 
 /**
+ * Decode user information embedded in the JWT. The JWT being made of three parts,
+ * we only have to consider the second one (the first one is the hash algorithm description
+ * and the last one is challenging the secret key used for hashing)
+ *
  * @todo move to proper utils?
  */
 const decodeUserInfo = (jwt: string): UserInfo => {
@@ -48,6 +56,7 @@ export default new Vuex.Store<RootState>({
       user: decodeUserInfo(token),
     }
   },
+
   mutations: {
     updateToken: (state, token: string) => {
       state.token = token
@@ -64,6 +73,7 @@ export default new Vuex.Store<RootState>({
       }
     },
   },
+
   actions: {
     login: async ({ commit }, payload: UserCredential) => {
       // If the login fails, an exception is thrown here
@@ -76,5 +86,6 @@ export default new Vuex.Store<RootState>({
       commit('updateToken', undefined)
     },
   },
+
   modules: {},
 })

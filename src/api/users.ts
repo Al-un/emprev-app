@@ -7,9 +7,7 @@ class ApiUser extends ApiBase {
     const resp: AxiosResponse<User> = await this.httpClient.post(
       '/users/',
       payload.value,
-      {
-        headers: this.buildAuthHeaders(payload),
-      }
+      { headers: this.buildAuthHeaders(payload) }
     )
 
     return resp.data
@@ -27,9 +25,7 @@ class ApiUser extends ApiBase {
   async get(payload: ApiReqPayload<string>): Promise<User> {
     const resp: AxiosResponse<User> = await this.httpClient.get(
       `/users/${payload.value}/`,
-      {
-        headers: this.buildAuthHeaders(payload),
-      }
+      { headers: this.buildAuthHeaders(payload) }
     )
 
     return resp.data

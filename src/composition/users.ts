@@ -5,6 +5,10 @@ import api from '@/api'
 
 import { useEntityList, useEntityCrud } from './base'
 
+/**
+ * User list composition
+ * @param ctx
+ */
 export const useUserList = (ctx: SetupContext) => {
   const list = useEntityList<User>(
     ctx,
@@ -61,7 +65,7 @@ export const useUserList = (ctx: SetupContext) => {
 }
 
 /**
- *
+ * User information composition
  * @param ctx
  * @todo Types required here, which requires re-typing the RootState as well
  */

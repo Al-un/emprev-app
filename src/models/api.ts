@@ -1,3 +1,6 @@
+/**
+ * Map a payload type with a token
+ */
 export interface ApiReqPayload<T> {
   token: string
   value: T

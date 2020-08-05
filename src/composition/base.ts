@@ -5,14 +5,19 @@ import { Entity } from '@/models'
 import { useAuthToken } from './auth'
 
 /**
- * Sets of form validation rules, vuetify-compliant
+ * Sets of form validation rules, vuetify-compliant, as well as form validity
+ * state
+ *
  * @param ctx
+ *
+ * @todo should the `submit` method be defined here? It assumes that the
+ * emitted event will always be "submit"
  */
 export const useForm = (ctx: SetupContext) => {
   const formRef = ref(null)
   const isFormValid = ref(false)
 
-  const ruleIsRequired: InputValidationRule = (val: any) => {
+  const ruleIsRequired: InputValidationRule = (val: string | number) => {
     if (!val) {
       return ctx.root.$t('common.form.required') as string
     }
@@ -24,8 +29,9 @@ export const useForm = (ctx: SetupContext) => {
 
 /**
  * Generic definition for a CRUD management for an entity. Specically, this
- * composition handles creation and updates
+ * composition handles creations and updates.
  *
+ * @param ctx
  * @param getNew generate a new entity. Equivalent to default constructor in OOP
  * @param create create method to be called
  * @param update update method to be called
@@ -37,7 +43,7 @@ export const useEntityCrud = <E extends Entity>(
   updateMethod: (token: string, entity: UnwrapRef<E>) => Promise<E>
 ) => {
   /**
-   * Loading the to-be-created or to-be-updated entity here
+   * The to-be-created or to-be-updated entity
    */
   const current = ref<E | undefined>(undefined)
   /**
@@ -45,10 +51,11 @@ export const useEntityCrud = <E extends Entity>(
    * in components/views to avoid conflict with other loading status
    */
   const loading = ref(false)
+  // Get the token from Vuex
   const token = useAuthToken(ctx)
 
   /**
-   * A form is expected to appear with a new value. ID should be empty
+   * A form is expected to appear with a new value. ID should be empty.
    */
   const prepareForCreate = () => {
     current.value = getNew()
@@ -56,7 +63,8 @@ export const useEntityCrud = <E extends Entity>(
 
   /**
    * A form is expected to appear with an existing entity. The form might
-   * now allow editing all the fields
+   * now allow editing all the fields.
+   *
    * @param entity to be edited entity
    */
   const prepareForUpdate = (entity: UnwrapRef<E>) => {
@@ -64,19 +72,22 @@ export const useEntityCrud = <E extends Entity>(
   }
 
   /**
-   * Discard changes
+   * Discard changes. It only cancels the `current` value. If more actions are
+   * required, it is up to the view to guarantee those actions are performed.
    *
-   * @todo check if `current` does not modify the original entityu
+   * @todo check if `current` does not modify the original entity!!
    */
   const cancel = () => {
     current.value = undefined
   }
 
   /**
-   * Submit changes (creation or update) based on ID
+   * Submit changes (creation or update, based on ID existence)
    */
   const submit = async () => {
     if (!current.value) {
+      // Error: should never happen!
+      console.error(`Why are you submitting a change with an empty entity?`)
       return
     }
 
@@ -102,14 +113,28 @@ export const useEntityCrud = <E extends Entity>(
   }
 }
 
+/**
+ * Generic definition of a entity list management. The basic functionalities are
+ * - list entities based on a provided fetching method
+ * - delete entities. Entities are only deleted and the list is NOT updated.
+ *
+ * Creation and update are handled by the CRUD composition.
+ *
+ * @param ctx
+ * @param loadList fetch the entity list
+ * @param deleteMethod delete an entity
+ */
 export const useEntityList = <E extends Entity>(
   ctx: SetupContext,
   loadList: (token: string) => Promise<E[]>,
   deleteMethod: (token: string, entity: E) => Promise<void>
 ) => {
-  const token = useAuthToken(ctx)
+  // Entities list
   const list = ref<E[]>([])
+  // List specific loading status
   const loading = ref<boolean>(false)
+  // Use token from Vuex
+  const token = useAuthToken(ctx)
 
   onMounted(async () => {
     loading.value = true

@@ -6,11 +6,15 @@ import api from '@/api'
 import { useEntityList, useEntityCrud } from './base'
 import { useLoggedUser } from './users'
 
+/**
+ * Reviews list management composition
+ * @param ctx
+ */
 export const useReviewList = (ctx: SetupContext) => {
   const usersList = useEntityList<User>(
     ctx,
     async token => await api.user.list({ token, value: undefined }),
-    async (_, __) => {
+    async () => {
       /* */
     }
   )
@@ -18,7 +22,7 @@ export const useReviewList = (ctx: SetupContext) => {
   const reviewsList = useEntityList<Review>(
     ctx,
     async token => await api.review.listAll({ token, value: undefined }),
-    async (_, __) => {
+    async () => {
       /* no review update by administrators*/
     }
   )
@@ -77,6 +81,10 @@ export const useReviewList = (ctx: SetupContext) => {
   }
 }
 
+/**
+ * Review submission composition
+ * @param ctx
+ */
 export const useReviewDashboard = (ctx: SetupContext) => {
   const loggedUser = useLoggedUser(ctx)
   const usersList = useEntityList<User>(

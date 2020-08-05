@@ -18,6 +18,7 @@
       <p>{{ $t('reviews.dashboard.list.description') }}</p>
 
       <v-divider></v-divider>
+
       <v-alert v-if="reviewsByPeriod.length === 0 && !loading" type="info">
         {{ $t('reviews.dashboard.list.empty') }}
       </v-alert>

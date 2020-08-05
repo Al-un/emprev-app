@@ -56,7 +56,7 @@
 import { defineComponent, SetupContext } from '@vue/composition-api'
 
 import { useForm } from '@/composition'
-import { Review, User } from '@/models'
+import { Review } from '@/models'
 
 interface Props {
   value: Review

@@ -14,7 +14,6 @@ import {
   SetupContext,
   reactive,
   ref,
-  computed,
 } from '@vue/composition-api'
 
 import { UserCredential, ApiReqStatus } from '@/models'
@@ -34,9 +33,12 @@ export default defineComponent({
       }
 
       try {
+        // this is super awesome: it's reactive within the method call \o/
         status.value = 'loading'
+
         await ctx.root.$store.dispatch('login', credentials)
 
+        // Auto-redirect users to the desired page upon successful login
         const nextPageName =
           (ctx.root.$route.query['nextPage'] as string) || 'home'
 

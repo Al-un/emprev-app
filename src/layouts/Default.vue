@@ -1,5 +1,6 @@
 <template>
   <v-app :dark="layout.dark">
+    <!-- Left navigation menu -->
     <v-navigation-drawer
       v-if="user.isLogged"
       v-model="layout.drawer"
@@ -51,6 +52,7 @@
 
       <template #append>
         <v-divider></v-divider>
+
         <v-container>
           <v-row align="center" justify="center">
             <v-icon>mdi-weather-sunny</v-icon>
@@ -61,21 +63,24 @@
       </template>
     </v-navigation-drawer>
 
+    <!-- Top bar -->
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon
         v-if="user.isLogged"
         @click.stop="layout.drawer = !layout.drawer"
       />
+
       <v-spacer />
+
       <div v-if="user.isLogged">
         <v-btn @click="logout">
           <span>{{ $t('nav.header.logout') }}</span>
           <v-icon class="ml-2">mdi-logout</v-icon>
         </v-btn>
       </div>
-      <!-- <v-btn v-else :to="loginDest" nuxt>{{ $t("nav.header.login") }}</v-btn> -->
     </v-app-bar>
 
+    <!-- Main content -->
     <v-main>
       <slot></slot>
     </v-main>
@@ -94,28 +99,21 @@ import {
 import { isAdmin, isAuthenticated } from '@/utils'
 import { ROUTES } from '@/router'
 
+// key to save dark theme status in local storage
 const EMPREV_DARK = 'emprev_dark'
 
 export default defineComponent({
   name: 'layout-default',
 
   setup(_: {}, ctx: SetupContext) {
+    // Load dark theme if any
     const isDark = !!localStorage.getItem(EMPREV_DARK) || false
 
+    // Layout state
     const layout = reactive({
       dark: isDark,
       drawer: false,
     })
-
-    const user = {
-      isAdmin: computed(() => isAdmin()),
-      isLogged: computed(() => isAuthenticated()),
-    }
-
-    const logout = async () => {
-      await ctx.root.$store.dispatch('logout')
-      ctx.root.$router.push({ name: ROUTES.LOGIN })
-    }
 
     watch(
       () => layout.dark,
@@ -129,6 +127,17 @@ export default defineComponent({
       },
       { immediate: true }
     )
+
+    // Authenticated user state
+    const user = {
+      isAdmin: computed(() => isAdmin()),
+      isLogged: computed(() => isAuthenticated()),
+    }
+
+    const logout = async () => {
+      await ctx.root.$store.dispatch('logout')
+      ctx.root.$router.push({ name: ROUTES.LOGIN })
+    }
 
     return { layout, user, logout }
   },

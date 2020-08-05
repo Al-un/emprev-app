@@ -45,15 +45,6 @@ const routes: Array<RouteConfig> = [
     name: ROUTES.NOT_FOUND,
     component: Login,
   },
-  // {
-  //   path: "/about",
-  //   name: "About",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/About.vue")
-  // }
 ]
 
 const router = new VueRouter({
@@ -61,7 +52,7 @@ const router = new VueRouter({
 })
 
 // Authentication guard
-router.beforeEach((to, from, next): void => {
+router.beforeEach((to, _, next): void => {
   // All internal routes are named!
   if (!to.name) {
     next({ name: ROUTES.NOT_FOUND })
@@ -72,6 +63,10 @@ router.beforeEach((to, from, next): void => {
     if (!isAuthenticated()) {
       next({ name: ROUTES.LOGIN, query: { nextPage: to.name } })
     }
+    // --- Administrator access check removed due to some error (infinite loops)
+    // --- and I won't have the time to properly fix it. Although the users can
+    // --- enter the URL of those pages, the API calls should fail. There is no
+    // --- such error handling so the hacky user will only see a blank page
     // else if (!isAdmin()) {
     //   next({ name: ROUTES.HOME, query: { nextPage: to.name } })
     // }

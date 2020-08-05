@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import { User } from '@/models'
 import UserCard from './UserCard.vue'
@@ -37,6 +37,7 @@ export default defineComponent({
 <style lang="scss">
 .user-grid {
   display: grid;
+  // Note: using a CSS variable for the repeat count does not work T_T
   grid-template-columns: repeat(1, 1fr);
   gap: $gap-size-xs;
 

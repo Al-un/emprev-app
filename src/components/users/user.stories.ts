@@ -59,7 +59,7 @@ storiesOf('Users', module)
     props: {
       users: {
         default: object('Users', [
-          { username: 'John Doe', isAdmin: false, isDeleted: false },
+          { username: 'Yuyuko Saigyouji', isAdmin: true, isDeleted: false },
           { username: 'Marisa Kirisame', isAdmin: false, isDeleted: false },
           { username: 'Reimu Hakurei', isAdmin: false, isDeleted: false },
           { username: 'Suika Ibuki', isAdmin: false, isDeleted: false },

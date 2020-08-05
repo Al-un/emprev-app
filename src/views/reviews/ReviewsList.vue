@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, SetupContext, ref, watch } from '@vue/composition-api'
+import { defineComponent, SetupContext, ref } from '@vue/composition-api'
 
 import ReviewFormNew from '@/components/reviews/ReviewFormNew.vue'
 import { useReviewList } from '@/composition'

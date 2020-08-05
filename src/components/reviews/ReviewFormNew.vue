@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, SetupContext, ref, watch } from '@vue/composition-api'
+import { defineComponent, SetupContext } from '@vue/composition-api'
 
 import { useForm } from '@/composition'
 import { Review, User } from '@/models'
